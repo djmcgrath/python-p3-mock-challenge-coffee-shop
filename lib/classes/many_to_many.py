@@ -15,7 +15,7 @@ class Coffee:
             self._name = name
         
     def orders(self):
-        return [coffee for coffee in Order.all if coffee.coffee is self]
+        return [order for order in Order.all if order.coffee is self]
     
     def customers(self):
         return list({coffee.customer for coffee in self.orders()})
@@ -24,7 +24,7 @@ class Coffee:
         return len(self.orders())
     
     def average_price(self):
-        return sum([order.price for order in self.orders()]) / len(self.orders())
+        return sum(order.price for order in self.orders()) / len(self.orders())
 
 class Customer:
     all = []
@@ -66,7 +66,7 @@ class Order:
     
     @price.setter
     def price (self, price):
-        if isinstance(price, float) and not hasattr(self, "price"):
+        if isinstance(price, float) and 1.0 <= price <= 10.0 and not hasattr(self, "price"):
             self._price = price
 
     @property
